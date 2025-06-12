@@ -10,14 +10,17 @@ import {
 } from "@mui/material";
 import {userID} from "./components/StartForm.jsx";
 import {useNavigate} from "react-router";
+import {QRCodeCanvas} from 'qrcode.react';
 
 let flag = false;
 let listID = 0;
+let url = '';
 
 // const lists = [];
 
 function App() {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+    const [qrModalIsOpen, setQRModalIsOpen] = useState(false);
     const [input, setInput] = useState("");
     const [mountFlag, setmountFlag] = useState(false);
     const [list, setList] = useState([]);
@@ -44,6 +47,17 @@ function App() {
     function closeModal() {
         setEditModalIsOpen(false);
     }
+
+    function openQRModal(e) {
+        console.log(e.currentTarget.dataset.index);
+        url = `http://localhost:5173/main/${e.currentTarget.dataset.index}`;
+        setQRModalIsOpen(true);
+    }
+
+    function closeQRModal() {
+        setQRModalIsOpen(false);
+    }
+
 
     async function listRegister() {
         await fetch('/api/lists', {
@@ -146,7 +160,7 @@ function App() {
                         <IconButton aria-label="item" data-index={obj.id} onClick={gotoitems}>
                             🛒
                         </IconButton>
-                        <IconButton aria-label="edit" data-index={obj.id} onClick={edit}>
+                        <IconButton aria-label="edit" data-index={obj.id} onClick={openQRModal}>
                             📲
                         </IconButton>
                         <IconButton aria-label="delete" data-index={obj.id} onClick={listDelete}>
@@ -170,6 +184,27 @@ function App() {
                 <Button onClick={listRegister}>追加</Button>
                 <Button onClick={closeModal}>中止</Button>
             </Modal>
+
+
+            <Modal isOpen={qrModalIsOpen} style={customStyles} contentLabel="QRコード" ariaHideApp={false}>
+
+                <Box sx={{display: 'flex', justifyContent: 'center'}}>
+
+                    <QRCodeCanvas
+                        value={url}
+                        size={128}
+                        bgColor={"#FFFFFF"}
+                        fgColor={"#000000"}
+                        level={"M"}
+                        marginSize={4}
+                    />
+
+
+                </Box>
+
+                <Button onClick={closeQRModal}>閉じる</Button>
+            </Modal>
+
         </Box>
     );
 }
