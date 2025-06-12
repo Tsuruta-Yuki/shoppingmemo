@@ -6,10 +6,11 @@ import {
     Button,
     Stack,
     IconButton,
-    CircularProgress, TextField, FormControlLabel,
+    CircularProgress, TextField, FormControlLabel, ToggleButton, Checkbox,
 } from "@mui/material";
 import {listID} from "../App.jsx";
-import Radio from '@mui/material/Radio';
+import {useNavigate} from "react-router";
+
 
 function Item() {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -18,6 +19,7 @@ function Item() {
     const [mountFlag, setmountFlag] = useState(false);
     const [Item, setItem] = useState([]);
     const [checkednum, setCheckednum] = useState(0);
+    const navigate = useNavigate();
     const customStyles = {
         content: {
             top: "30%",
@@ -87,6 +89,8 @@ function Item() {
     }, [mountFlag]);
 
     async function itemDelete(e) {
+        // console.log("e", e.target);
+        // e.target.style.backgroundColor = "black";
         await fetch(`api/items/${(e.currentTarget.dataset.index)}`, {
             method: 'DELETE',
             headers: {
@@ -99,10 +103,16 @@ function Item() {
     }
 
     function handleClick(e) {
-        console.log(e.currentTarget.dataset.index)
-        setCheckednum(e.currentTarget.dataset.index);
-        console.log(checkednum)
+        if (e.target.checked === true) {
+            e.currentTarget.style.textDecoration = 'line-through';
+        } else {
+            e.currentTarget.style.textDecoration = '';
+        }
+    }
 
+
+    function gotoList(e) {
+        navigate("/main");
     }
 
 
@@ -120,21 +130,14 @@ function Item() {
                     textAlign: "center",
                 }}
             >
-                <h1>買い物リスト</h1>
+                <h1>購入商品一覧</h1>
                 {Item.map((obj) =>
 
 
                     <Box style={{border: "1px solid black", padding: 4}} key={obj.id} index={obj.id}
                     >
-                        {/*<Radio data-index={obj.id} checked={false} onClick={handleClick}/>*/}
-                        <input
-                            type="checkbox"
-                            className="mr-2"
-                            checked={obj.done}
-                            onChange={() => handleClick(obj.id)}
-                        />
-
-                        {obj.itemName} {obj.number}
+                        <FormControlLabel control={<Checkbox/>} onClick={handleClick}
+                                          label={obj.itemName + "  " + obj.number}/>
 
                         <IconButton aria-label="delete" data-index={obj.id} onClick={itemDelete}>
                             🗑️
@@ -144,6 +147,7 @@ function Item() {
                 )}
 
                 <Button onClick={openModal}>商品を追加</Button>
+                <Button onClick={gotoList}>リスト一覧へ戻る</Button>
             </Box>
             <Modal isOpen={editModalIsOpen} style={customStyles} ariaHideApp={false}>
                 <TextField

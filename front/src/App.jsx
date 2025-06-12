@@ -22,7 +22,7 @@ function App() {
     const [input, setInput] = useState("");
     const [mountFlag, setmountFlag] = useState(false);
     const [list, setList] = useState([]);
-    const navigate = useNavigate(); //フック。関数などイベント内で動的に遷移。
+    const navigate = useNavigate();
 
     const customStyles = {
         content: {
@@ -124,7 +124,7 @@ function App() {
                     textAlign: "center",
                 }}
             >
-                <h1>買い物リスト</h1>
+                <h1>リスト一覧</h1>
 
                 {list.map((obj) =>
 
