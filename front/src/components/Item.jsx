@@ -26,10 +26,9 @@ function Item() {
             left: "50%",
             right: "auto",
             bottom: "auto",
-            marginRight: "-50%",
+            marginRight: "-100%",
+            width: "80%",
             transform: "translate(-50%, -50%)",
-            minWidth: "40%",
-
         },
     };
 
@@ -118,7 +117,9 @@ function Item() {
 
     return (
 
-        <>
+        <Box width={"390px"}>
+
+            <Typography variant={"h4"} textAlign={"center"} paddingTop={"10px"}>購入商品一覧</Typography>
             <Box
                 sx={{
                     display: "flex",
@@ -128,13 +129,20 @@ function Item() {
                     height: "100%",
                     px: 2,
                     textAlign: "center",
+                    margin: "5px",
+                    marginTop: "30px"
                 }}
             >
-                <h1>購入商品一覧</h1>
                 {Item.map((obj) =>
 
 
-                    <Box style={{border: "1px solid black", padding: 4}} key={obj.id} index={obj.id}
+                    <Box style={{
+                        border: "1px solid #2196f3",
+                        borderRadius: '16px',
+                        padding: 5,
+                        margin: "10px",
+                        width: '100%'
+                    }} key={obj.id} index={obj.id}
                     >
                         <FormControlLabel control={<Checkbox/>} onClick={handleClick}
                                           label={obj.itemName + "  " + obj.number}/>
@@ -150,20 +158,25 @@ function Item() {
                 <Button onClick={gotoList}>リスト一覧へ戻る</Button>
             </Box>
             <Modal isOpen={editModalIsOpen} style={customStyles} ariaHideApp={false}>
-                <TextField
-                    label="商品名を入力"
-                    onChange={setinput}
-                />
-                <TextField
-                    label="個数を入力"
-                    onChange={setnuminput}
-                />
-
+                <Box style={{
+                    display: "flex",
+                    gap: "10px",
+                    flexDirection: "column", // 縦並び
+                }}>
+                    <TextField
+                        label="商品名を入力"
+                        onChange={setinput}
+                    />
+                    <TextField
+                        label="個数を入力"
+                        onChange={setnuminput}
+                    />
+                </Box>
                 <Button onClick={itemRegister}>追加</Button>
                 <Button onClick={closeModal}>中止</Button>
             </Modal>
 
-        </>
+        </Box>
 
 
     )

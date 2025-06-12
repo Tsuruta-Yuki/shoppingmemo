@@ -4,7 +4,6 @@ import theme from "./theme";
 import AppLayout from "./components/AppLayout.jsx";
 import {StartForm} from "./components/StartForm.jsx";
 import {BrowserRouter, Route, Routes} from "react-router";
-import "./index.css";
 import {App} from "./App.jsx";
 import Item from "./components/Item.jsx";
 

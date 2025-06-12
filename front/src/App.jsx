@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import "./App.css";
 import Modal from "react-modal";
 import {
     Box,
@@ -31,14 +30,12 @@ function App() {
             right: "auto",
             bottom: "auto",
             marginRight: "-50%",
+            width: "80%",
             transform: "translate(-50%, -50%)",
-            minWidth: "40%",
 
         },
     };
 
-    console.log('mountFlag', mountFlag)
-    console.log('!mountFlag', !mountFlag)
 
     function openModal() {
         setEditModalIsOpen(true);
@@ -112,7 +109,10 @@ function App() {
 
 
     return (
-        <>
+        <Box width={"390px"}>
+            <Typography variant={"h4"} textAlign={"center"} paddingTop={"10px"}>
+                リスト一覧
+            </Typography>
             <Box
                 sx={{
                     display: "flex",
@@ -122,20 +122,32 @@ function App() {
                     height: "100%",
                     px: 2,
                     textAlign: "center",
+                    margin: "5px",
+                    marginTop: "30px"
                 }}
             >
-                <h1>リスト一覧</h1>
+
 
                 {list.map((obj) =>
 
 
-                    <Box style={{border: "1px solid black", padding: 4}} key={obj.id} index={obj.id}
-                    >{obj.title} <br/>
-                        <IconButton aria-label="delete" data-index={obj.id} onClick={edit}>
+                    <Box style={{
+                        border: "1px solid #2196f3",
+                        borderRadius: '16px',
+                        padding: 5,
+                        margin: "10px",
+                        width: '100%'
+                    }} key={obj.id}
+                         index={obj.id}
+                    >{obj.title}
+                        <IconButton aria-label="edit" data-index={obj.id} onClick={edit}>
                             ✏️
                         </IconButton>
-                        <IconButton aria-label="delete" data-index={obj.id} onClick={gotoitems}>
+                        <IconButton aria-label="item" data-index={obj.id} onClick={gotoitems}>
                             🛒
+                        </IconButton>
+                        <IconButton aria-label="edit" data-index={obj.id} onClick={edit}>
+                            📲
                         </IconButton>
                         <IconButton aria-label="delete" data-index={obj.id} onClick={listDelete}>
                             🗑️
@@ -152,12 +164,13 @@ function App() {
                 <TextField
                     label="リスト名を入力"
                     onChange={setinput}
+                    fullWidth={true}
                 />
 
                 <Button onClick={listRegister}>追加</Button>
                 <Button onClick={closeModal}>中止</Button>
             </Modal>
-        </>
+        </Box>
     );
 }
 

@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router";
-import {Box, Button, TextField} from "@mui/material";
+import {Box, Button, TextField, Typography} from "@mui/material";
 import logo from "../assets/logo.png";
 import {useState} from "react";
 
@@ -49,7 +49,7 @@ function StartForm() {
                 textAlign: "center",
             }}
         >
-            <h1>お買い物メモ</h1>
+            <Typography variant={"h3"}>お買い物メモ</Typography>
             <Box
                 component={"img"}
                 src={logo}
