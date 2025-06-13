@@ -28,10 +28,8 @@ function StartForm() {
 
         let response = await fetch(`/api/users/${input}`);
         response = await response.json();
-        console.log("response", response)
 
         userID = response[0].id
-        console.log("useID", userID)
         navigate("/main");
     }
 

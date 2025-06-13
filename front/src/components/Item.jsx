@@ -79,10 +79,7 @@ function Item() {
     }
 
     useEffect(() => {
-        console.log('useEffect');
         fetchItems();
-
-        console.log('mountFlag', mountFlag);
 
 
     }, [mountFlag]);
@@ -145,7 +142,7 @@ function Item() {
                     }} key={obj.id} index={obj.id}
                     >
                         <FormControlLabel control={<Checkbox/>} onClick={handleClick}
-                                          label={obj.itemName + "  " + obj.number}/>
+                                          label={obj.itemName + "  " + "(数量: " + obj.number + ')'}/>
 
                         <IconButton aria-label="delete" data-index={obj.id} onClick={itemDelete}>
                             🗑️
@@ -168,7 +165,7 @@ function Item() {
                         onChange={setinput}
                     />
                     <TextField
-                        label="個数を入力"
+                        label="数量を整数値で入力"
                         onChange={setnuminput}
                     />
                 </Box>

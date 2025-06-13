@@ -49,7 +49,6 @@ function App() {
     }
 
     function openQRModal(e) {
-        console.log(e.currentTarget.dataset.index);
         url = `http://localhost:5173/main/${e.currentTarget.dataset.index}`;
         setQRModalIsOpen(true);
     }
@@ -113,11 +112,7 @@ function App() {
     }
 
     useEffect(() => {
-        console.log('useEffect');
         fetchLists();
-
-        console.log('mountFlag', mountFlag);
-
 
     }, [mountFlag]);
 
